@@ -1,4 +1,4 @@
-export const calculate = (squares: any) => {
+export const calculate = (squares: Array<null>) => {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],

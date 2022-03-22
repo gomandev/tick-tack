@@ -4,11 +4,10 @@ import { useState } from "react";
 
 const Engine = () => {
   const [past, setPast] = useState([Array(9).fill(null)]);
-  console.log("past", past);
-  const [xIsNext, setXIsNext] = useState(true);
-  const [step, setStep] = useState(0);
+  const [xIsNext, setXIsNext] = useState<boolean>(true);
+  const [step, setStep] = useState<number>(0);
   const winner = calculate(past[step]);
-  const xO = xIsNext ? "X" : "O";
+  const xO: string = xIsNext ? "X" : "O";
   const handleClick = (i: number) => {
     const point = past.slice(0, step + 1);
     const current = point[step];
@@ -27,8 +26,8 @@ const Engine = () => {
     setXIsNext(step % 2 === 0);
   };
   const renderMoves = () => {
-    return past.map((_step, move) => {
-      const desc = move ? "Go to move #" + move : "Go to game start";
+    return past.map((_step, move: number) => {
+      const desc = move ? `Back to move ${move}` : "Restart";
       return (
         <li key={move}>
           <button onClick={() => goTo(move)}>{desc}</button>
@@ -39,14 +38,16 @@ const Engine = () => {
   return (
     <>
       <h1>Tick Tac toe</h1>
-      <Board boxes={past[step]} onClick={handleClick} />
-      <div className="info-wrapper">
-        <div>
-          <h3>history</h3>
-          {renderMoves()}
+      <div className="outer-wrapper">
+        <Board boxes={past[step]} onClick={handleClick} />
+        <div className="info-wrapper">
+          <div>
+            <h3>Past history</h3>
+            {renderMoves()}
+          </div>
+          <h3>{winner ? `Winner: ${winner} 🚀` : `Next Player ${xO}`}</h3>
         </div>
       </div>
-      <h3>{winner ? "Winner: " + winner : "Next Player" + xO}</h3>
     </>
   );
 };
