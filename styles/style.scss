@@ -86,3 +86,16 @@ h3 {
   justify-content: space-between;
   align-items: center;
 }
+
+@media screen and (max-width: 540px) {
+  .outer-wrapper {
+    flex-direction: column;
+    padding: 0 10px;
+    .board {
+      width: 400px;
+    }
+  }
+  body {
+    padding: 2em 0 !important;
+  }
+}
